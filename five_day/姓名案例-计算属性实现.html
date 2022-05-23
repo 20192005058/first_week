@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div class="root">
+   
+     姓： <input type="text" v-model="firstName">
+    <br/>
+    名： <input type="text" v-model="lastName">
+    <br/>
+   全名： <span>{{fullName}}</span><br/>
+   <!-- 这里做了一个缓存，当vue模板刷新是，fullName就会到缓存中
+    不会再向computed中索要 -->
+   全名： <span>{{fullName}}</span><br/>
+   全名： <span>{{fullName}}</span><br/>
+   全名： <span>{{fullName}}</span><br/>
+
+    <br/>
+    
+
+    
+</div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+       var vm= new Vue({
+        el:'.root',
+        //属性
+        data:{
+            firstName:'张',
+            lastName:'三'
+          },
+          //计算属性
+          //计算属性的返回值作为模板中的属性值，不能开启异步任务
+          computed:{
+              //要配置成一个对象 vm._data里面不会有computed中的对象
+              fullName:{
+                  //只要读取了fullName,get就会被调用，且返回值作为fullName的值
+                  //get中this被调成了vm
+                  //get什么时候被调用？1.初次访问fullName时，2.所依赖的数据发生改变时
+                get(){
+                    console.log('get被调用了！');
+                    return this.firstName +'-' +this.lastName;
+                },
+
+
+                //set不是必须的，set什么时候被调用？当fullName被修改时
+                //改成什么 value就收到什么
+                set(value){
+                    //console.log(value)；
+                    var arr=value.split('-');
+                    this.firstName=arr[0];
+                    this.lastName=arr[1];
+                }
+              },
+
+
+              //简写时不能有set方法，直接定义一个函数当成get用
+              //表面上是一个函数，实际上是往vm上放了一个fulName属性，他的值是这个函数的返回值
+              fulName(){
+                console.log('get被调用了！');
+                return this.firstName +'-' +this.lastName;
+              }
+          }
+        })
+        console.log(vm);
+    </script>
+</body>
+</html>

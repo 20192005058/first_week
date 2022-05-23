@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟监视</title>
+</head>
+<body>
+    <script>
+        let data={
+            name:'刘德华',
+            age:18
+        }
+
+        //不能直接对data用get，set修改，否则会陷入死循环
+
+        //vue中用Observer创建一个监视的实例对象
+        const obs=new Observer(data);
+
+        //console.log(obs);
+
+        //准备一个vm对象 vue中data===vm._data
+        //模拟vue中数据监视结束，vue中功能更加全面，体现在：
+        //1.vue中vm对象里实现了可以直接使用 name，age，在这里不行，这里要通过_data访问
+        //2.这里的监控只实现了一层，对于对象中的对象，对象中数组对象无法进行get，set监控，vue中递归得到了实现
+        let vm ={};
+        vm._data=data=obs;
+        console.log(vm);
+
+        
+
+        function Observer(obj){
+                let keys=Object.keys(obj);
+                keys.forEach((k)=>{
+                    //this，指向Observer的实例对象
+                    Object.defineProperty(this,k,{
+                        get(){
+                            return obj[k];
+                        },
+                        set(val){
+                            obj[k]=val;
+                        }
+                    })
+
+                })
+        }
+    </script>
+</body>
+</html>

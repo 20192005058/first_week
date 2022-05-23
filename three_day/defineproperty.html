@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var number=19;
+        let person={
+            name:'刘德华',
+            sex:'男'
+            //age
+            //age:number
+        }
+        Object.defineProperty(person,'age',{
+          /*
+            value:19,
+            enumerable:true ,//控制是否可以枚举，默认false
+            writable:true, //控制可更改
+            configurable:true, //控制是否可以删除
+*/
+ //当读取age属性时，get函数（getter）就会返回，且返回的函数是age的值，解决age能够变化
+           //get与set里不能对age属性进行直接访问和修改，不然会陷入递归死循环
+            get(){
+                
+                //每一次访问age都会触发get的调用
+                return number
+            },
+            //修改age时就会调用，且会收到具体值
+            set(value){
+                console.log('修改了age属性,且值为:'+value);
+                number=value; //加上这里修改值
+            }
+        })
+
+        console.log(person);
+        //可以把对象的所有属性提取出来变成一个数组
+     //   console.log(Object.keys(person));
+        for(let key in person){
+            console.log(person[key]);
+        }
+
+        //数据代理例子 通过obj2，可以修改obj中的x值
+        let obj={x:200};
+        let obj2={y:100};
+        Object.defineProperty(obj2,'x',{
+            get(){
+                
+                return obj.x;
+            },
+            set(value){
+                obj.x=value;
+            }
+        })
+
+
+    </script>
+</body>
+</html>

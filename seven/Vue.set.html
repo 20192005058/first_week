@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <!-- <title>Document</title> -->
+</head><!--  -->
+<body>
+    <div id="root">
+        <h1>学生</h1>
+        <h2>姓名:{{student.name}}</h2><!--  -->
+        <h2>年龄:{{student.age}}</h2>
+        <h2 v-if="student.sex">性别：{{student.sex}} </h2>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        var vm=new Vue({
+        el:'#root',
+        data:{
+         student:{
+            name:'刘德华',
+            age:18
+         }
+        }
+        })
+      //  Vue.set(vm.student,'sex','男');
+      vm.$set(vm.student,'sex','男');
+    </script>
+</body>
+</html>

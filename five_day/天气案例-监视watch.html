@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <h1>天气预报，今天天气{{info}}</h1>
+        <button @click="change">切换天气</button>
+    </div>
+    <script>
+         Vue.config.productionTip = false
+       var vm= new Vue({
+        el:'#root',
+        data:{
+            isHot:true,
+            
+        },
+        computed:{
+            info(){
+                return this.isHot ? '炎热' : '凉爽';
+            }
+        },
+        methods: {
+            change(){
+                this.isHot=!this.isHot;
+            }
+        },
+        //对数据进行监控
+        watch:{
+            //isHot其实是一个简写的方式，原始的写法应是'isHot'
+            isHot:{
+                //handler什么时候调用？当iSHot发生改变时
+                handler(newValue,oldValue){
+                    console.log('改变了',newValue,oldValue);
+                },
+                //初始化时可以让handler调用一次
+                immediate:true,
+            },
+            //计算值也可以监听
+            info:{
+                //handler什么时候调用？当iSHot发生改变时
+                handler(newValue,oldValue){
+                    console.log('改变了',newValue,oldValue);
+                },
+                //初始化时可以让handler调用一次
+                immediate:true,
+            }
+        }
+        })
+
+
+        //监视的另外一种方法
+        //'isHot'
+        vm.$watch('isHot',{
+            handler(newValue,oldValue){
+                    console.log('改变了',newValue,oldValue);
+                },
+                immediate:true,
+        })
+    </script>
+</body>
+</html>

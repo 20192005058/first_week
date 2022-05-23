@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 遍历数组-->
+        <span>搜索</span>
+        <input type="text" placeholder="输入搜索" v-model="keysW">
+        <ul>
+            <li v-for="(p,index) in fullperson" ::key="index">
+                {{p.name}} --{{p.age}}---{{p.sex}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+        el:'#root',
+        data:{
+        keysW:'',
+       // fullperson:[],
+        person:[
+            {
+                id:'001',name:'张三',age:18,sex:'女'
+            },
+            {
+                id:'002',name:'李四',age:19,sex:'女'
+            },
+            {
+                id:'003',name:'王五',age:20,sex:'女'
+            },
+            {
+                id:'004',name:'赵六',age:30,sex:'男'
+            }
+        ],
+
+        },
+        //watch实现过滤
+        //任何字符串包含空字符串
+      /*   watch:{
+            keyWord:{
+                immediate:true,
+                handler(val){
+                    this.fullperson=this.person.filter((p)=>{
+                        return p.name.indexOf(val)!==-1;
+                    })
+                }
+            }
+        }, */
+        //computed实现过滤
+      computed:{
+          //初次调用和所依赖数据发生改变
+          fullperson(){
+                   return  this.person.filter((p)=>{
+                       //keysW?在vm里
+                        return p.name.indexOf(this.keysW)!==-1;
+                    })
+        }
+      }
+        })
+    </script>
+</body>
+</html>

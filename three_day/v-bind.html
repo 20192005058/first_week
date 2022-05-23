@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div class="root">
+        <h1>插入值</h1>
+        <h3>{{name}}:{{age}}</h3>
+    </hr>
+        <h1>指令语法</h1>
+       
+        <a v-bind:href="url">链接</a>
+        <a :href="url.toUpperCase()">链接</a>
+
+        <input type="text" :value="age">
+        <input type="text" :value="1+1">
+        <input type="text" v-model:value="age">
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip=false;
+        new Vue({
+            el:'.root',
+            data:{
+                name:'刘德华',
+                age:18,
+                //v-bind: 能够将属性取出当成js表达式返回值可以简写成：
+                //v-bind与{{}}都要是js表达式v-bind用于解析属性
+                //v-bind是单向数据绑定 v-model 双向绑定
+                url:'http://www.baidu.com'
+            }
+        })
+    </script>
+</body>
+</html>

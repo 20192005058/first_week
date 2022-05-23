@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>实现渐变</title>
+</head>
+<body>
+    <div id="root">
+    <h3 style="opacity:0.5">vue渐变</h3>
+    <h2 :style="{opacity}">vue渐变</h2>
+    <h3>{{opacity}}</h3>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+       var vm= new Vue({
+        el:'#root',
+        data:{
+        opacity:1
+        },
+        //4对钩子
+         beforeCreate() {
+            console.log('before!');
+            console.log(this);
+            debugger;
+        },
+        created() {
+            console.log(this);
+            debugger;
+        },
+        beforeMount() {
+            console.log(this);
+            debugger;
+        },
+        mounted() {
+            document.querySelector('h2').innerText='哈哈'
+            console.log('开始挂载页面了！');
+            console.log(this);
+            setInterval(()=>{
+                    this.opacity-=0.01;
+                    if(this.opacity<=0)
+                    this.opacity=1;
+        },16)
+        },
+        beforeUpdate() {
+            
+        },
+        updated() {
+            
+        },
+       
+        beforeDestroy() {
+            
+        },
+        destroyed() {
+            
+        },
+
+        })
+    
+    </script>
+</body>
+</html>

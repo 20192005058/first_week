@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 遍历数组-->
+        <span>搜索</span>
+        <button @click="typeclick = 1">升序</button>
+        <button @click="typeclick = 2">降序</button>
+        <button @click="typeclick = 0">原序</button>
+        <input type="text" placeholder="输入搜索" v-model="keysW">
+        <ul>
+            <li v-for="(p,index) in fullperson" ::key="index">
+                {{p.name}} --{{p.age}}---{{p.sex}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+        el:'#root',
+        data:{
+        keysW:'',
+        typeclick:0,
+        person:[
+            {
+                id:'001',name:'李三',age:38,sex:'女'
+            },
+            {
+                id:'002',name:'李四',age:29,sex:'女'
+            },
+            {
+                id:'003',name:'王五',age:20,sex:'女'
+            },
+            {
+                id:'004',name:'赵六',age:30,sex:'男'
+            }
+        ],
+        },
+      computed:{
+          fullperson(){
+              //console.log(this.typeclick);
+
+
+                   let arr=  this.person.filter((p)=>{
+                        return p.name.indexOf(this.keysW)!==-1;
+                    });
+                    if(this.typeclick){
+                        arr.sort((a,b)=>{
+                                    return this.typeclick===1?a.age-b.age:b.age-a.age;
+                                })
+                    };
+                    return arr;
+        }
+      },
+
+        })
+
+        //sort用法
+        let arr=[0,2,1,6,3,4,5];
+        arr.sort((a,b)=>{
+            return a-b;
+        })
+        console.log(arr);
+        arr.sort((a,b)=>{
+            return b-a;
+        })
+        console.log(arr);
+        arr.sort();
+        console.log(arr);
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div class="root">
+    <!-- 只有vue 里面的data一发生改变，div 模板中就会重新解析一遍
+   插值语法就会解析一遍，插值里面的函数会再重新调用一遍-->
+     姓： <input type="text" v-model="firstName">
+    <br/>
+    名： <input type="text" v-model="lastName">
+    <br/>
+  <!--  <button @click="fullName">点击</button>-->
+    <span>{{fullName()}}</span>
+
+
+    <br/>
+    
+
+    
+</div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+        el:'.root',
+        data:{
+            firstName:'张',
+            lastName:'三'
+          },
+          methods:{
+              fullName(){
+                  //firstName要用data里的firstName
+             //  return firstName +'-'+ lastName;
+             return this.firstName.slice(0,3) +'-'+ this.lastName;
+              }
+          }
+        })
+    </script>
+</body>
+</html>

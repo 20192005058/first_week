@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="root"> <!-- div里面的就是Vue模板-->
+        <h1>欢迎：{{name}}</h1>
+        <button v-on:click="fun">点击(不传参数)</button>
+        <button @click="fun2(66,$event)">点击(传参数)</button>
+    </div>
+    <script>
+        
+        Vue.config.productionTip = false;
+        new Vue({
+        el:'.root', 
+        data:{
+        name:'张三'
+        },
+        methods:{
+            //fun,fun2不需要数据代理，就放在methods里
+            fun(){
+            console.log('我被点击了');
+        },
+        fun2(number,event){
+            console.log(number);
+            console.log(event);
+            console.log(event.target);
+        }
+        }
+        })
+    </script>
+</body>
+</html>
